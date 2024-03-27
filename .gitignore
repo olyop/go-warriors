@@ -1,0 +1,5 @@
+node_modules
+
+server/gowarriors
+server/tmp
+server/.env

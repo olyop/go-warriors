@@ -1,0 +1,39 @@
+{
+	"name": "go-warriors",
+	"version": "1.0.0",
+	"description": "Go Warriors",
+	"author": {
+		"name": "Oliver Plummer",
+		"email": "oliver.plummer@outlook.com",
+		"url": "https://oliverplummer.com.au"
+	},
+	"license": "GPL-3.0",
+	"private": true,
+	"type": "module",
+	"bugs": {
+		"url": "https://github.com/olyop/go-warriors/issues",
+		"email": "oliver.plummer@outlook.com"
+	},
+	"volta": {
+		"node": "21.6.2",
+		"npm": "10.4.0"
+	},
+	"engines": {
+		"node": "21.6.2",
+		"npm": "10.4.0"
+	},
+	"scripts": {
+		"jsonschema-generators": "generate-schema --generic --json-schema ./jsonschema-generators/nba-api-games-sample.json > ./jsonschema-generators/nba-api-games-response.json",
+		"generate-go-data-types": "go-jsonschema --only-models  --capitalization ID --capitalization API --capitalization NBA --struct-name-from-title --package nba --output ./server/integrations/nba/response.go ./jsonschema-generators/nba-api-games-response.json",
+		"server-dev": "cd server && air && cd .."
+	},
+	"devDependencies": {
+		"@oly_op/cspell-dict": "1.1.10",
+		"@oly_op/eslint-config": "6.7.20",
+		"@oly_op/prettier-config": "1.8.2",
+		"@oly_op/tsconfig": "1.2.1",
+		"concurrently": "8.2.2",
+		"generate-schema": "2.6.0",
+		"npm-check-updates": "16.14.17"
+	}
+}

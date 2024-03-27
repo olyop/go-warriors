@@ -1,0 +1,247 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "get": {
+      "type": "string"
+    },
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string"
+        }
+      }
+    },
+    "errors": {
+      "type": "object",
+      "properties": {}
+    },
+    "results": {
+      "type": "number"
+    },
+    "response": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "league": {
+            "type": "string"
+          },
+          "season": {
+            "type": "number"
+          },
+          "date": {
+            "type": "object",
+            "properties": {
+              "start": {
+                "type": "string"
+              },
+              "end": {
+                "type": "null"
+              },
+              "duration": {
+                "type": "null"
+              }
+            }
+          },
+          "stage": {
+            "type": "number"
+          },
+          "status": {
+            "type": "object",
+            "properties": {
+              "clock": {
+                "type": "null"
+              },
+              "halftime": {
+                "type": "boolean"
+              },
+              "short": {
+                "type": "number"
+              },
+              "long": {
+                "type": "string"
+              }
+            }
+          },
+          "periods": {
+            "type": "object",
+            "properties": {
+              "current": {
+                "type": "number"
+              },
+              "total": {
+                "type": "number"
+              },
+              "endOfPeriod": {
+                "type": "boolean"
+              }
+            }
+          },
+          "arena": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "country": {
+                "type": "null"
+              }
+            }
+          },
+          "teams": {
+            "type": "object",
+            "properties": {
+              "visitors": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "nickname": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  },
+                  "logo": {
+                    "type": "string"
+                  }
+                }
+              },
+              "home": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "nickname": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  },
+                  "logo": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "scores": {
+            "type": "object",
+            "properties": {
+              "visitors": {
+                "type": "object",
+                "properties": {
+                  "win": {
+                    "type": "number"
+                  },
+                  "loss": {
+                    "type": "number"
+                  },
+                  "series": {
+                    "type": "object",
+                    "properties": {
+                      "win": {
+                        "type": "number"
+                      },
+                      "loss": {
+                        "type": "number"
+                      }
+                    }
+                  },
+                  "linescore": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "points": {
+                    "type": "number"
+                  }
+                }
+              },
+              "home": {
+                "type": "object",
+                "properties": {
+                  "win": {
+                    "type": "number"
+                  },
+                  "loss": {
+                    "type": "number"
+                  },
+                  "series": {
+                    "type": "object",
+                    "properties": {
+                      "win": {
+                        "type": "number"
+                      },
+                      "loss": {
+                        "type": "number"
+                      }
+                    }
+                  },
+                  "linescore": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "points": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          },
+          "officials": {
+            "type": "array",
+            "items": {}
+          },
+          "timesTied": {
+            "type": "null"
+          },
+          "leadChanges": {
+            "type": "null"
+          },
+          "nugget": {
+            "type": "null"
+          }
+        },
+        "required": [
+          "id",
+          "league",
+          "season",
+          "date",
+          "stage",
+          "status",
+          "periods",
+          "arena",
+          "teams",
+          "scores",
+          "officials",
+          "timesTied",
+          "leadChanges",
+          "nugget"
+        ]
+      }
+    }
+  }
+}

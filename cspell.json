@@ -1,0 +1,11 @@
+{
+	"import": ["@oly_op/cspell-dict/cspell-ext.json"],
+	"ignorePaths": ["./cspell-dictionary.txt", "./server/.env", "./jsonschema-generators"],
+	"dictionaryDefinitions": [
+		{
+			"name": "gowarriors.com.au",
+			"path": "./cspell-dictionary.txt"
+		}
+	],
+	"dictionaries": ["gowarriors.com.au"]
+}
