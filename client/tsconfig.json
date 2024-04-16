@@ -1,0 +1,25 @@
+{
+	"extends": "@oly_op/tsconfig",
+	"compilerOptions": {
+		"skipLibCheck": true,
+		"noEmit": true,
+		"module": "ESNext",
+		"moduleResolution": "Bundler",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"jsx": "preserve",
+		"jsxFactory": "createElement",
+		"incremental": true,
+		"plugins": [
+			{
+				"name": "next"
+			}
+		],
+		"paths": {
+			"@/*": ["./src/*"]
+		},
+		"lib": ["DOM", "DOM.Iterable", "ESNext"]
+	},
+	"include": ["next-env.d.ts", "src", ".next/types/**/*.ts"],
+	"exclude": ["node_modules"]
+}

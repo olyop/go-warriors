@@ -1,7 +1,7 @@
 package nba
 
 import (
-	"net/http"
+	"time"
 )
 
 const hostname = "api-nba-v1.p.rapidapi.com"
@@ -14,7 +14,7 @@ const rapidAPIHostHeaderKey = "X-RapidAPI-Host"
 func New(apiKey string) *NBA {
 	nba := &NBA{}
 
-	nba.client = &http.Client{}
+	nba.timeout = time.Second * 10
 	nba.apiKey = apiKey
 
 	return nba
@@ -22,17 +22,6 @@ func New(apiKey string) *NBA {
 
 // NBA is a client for the NBA API via RapidAPI
 type NBA struct {
-	client *http.Client
-	apiKey string
-}
-
-// GetGames returns the games for a given date
-func (nba *NBA) GetGames(params map[string]string) (NBAAPIGamesResponseJson, error) {
-	data, err := Query[NBAAPIGamesResponseJson](nba, "games", params)
-
-	if err != nil {
-		return data, err
-	}
-
-	return data, nil
+	timeout time.Duration
+	apiKey  string
 }

@@ -1,0 +1,14 @@
+{
+	"extends": ["@oly_op/eslint-config", "@oly_op/eslint-config-react"],
+	"rules": {
+		"react/react-in-jsx-scope": "off",
+		"node/no-unpublished-require": "off",
+		"react/jsx-no-bind": "off",
+		"no-restricted-exports": "off",
+		"import/order": "off",
+		"react/function-component-definition": "off"
+	},
+	"parserOptions": {
+		"project": "./client/tsconfig.eslint.json"
+	}
+}

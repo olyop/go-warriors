@@ -7,7 +7,7 @@
 		"email": "oliver.plummer@outlook.com",
 		"url": "https://oliverplummer.com.au"
 	},
-	"license": "GPL-3.0",
+	"license": "MIT",
 	"private": true,
 	"type": "module",
 	"bugs": {
@@ -23,17 +23,14 @@
 		"npm": "10.4.0"
 	},
 	"scripts": {
-		"jsonschema-generators": "generate-schema --generic --json-schema ./jsonschema-generators/nba-api-games-sample.json > ./jsonschema-generators/nba-api-games-response.json",
-		"generate-go-data-types": "go-jsonschema --only-models  --capitalization ID --capitalization API --capitalization NBA --struct-name-from-title --package nba --output ./server/integrations/nba/response.go ./jsonschema-generators/nba-api-games-response.json",
-		"server-dev": "cd server && air && cd .."
+		"prettier": "prettier --write .",
+		"client-dev": "cd client && clear && npm run dev",
+		"server-dev": "cd server && clear && air && cd ..",
+		"dev": "tmux new-session 'npm run client-dev' \\; split-window 'npm run server-dev'"
 	},
 	"devDependencies": {
 		"@oly_op/cspell-dict": "1.1.10",
-		"@oly_op/eslint-config": "6.7.20",
-		"@oly_op/prettier-config": "1.8.2",
-		"@oly_op/tsconfig": "1.2.1",
-		"concurrently": "8.2.2",
-		"generate-schema": "2.6.0",
-		"npm-check-updates": "16.14.17"
+		"@oly_op/prettier-config": "1.8.3",
+		"npm-check-updates": "16.14.18"
 	}
 }

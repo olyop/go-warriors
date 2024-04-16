@@ -1,0 +1,60 @@
+{
+	"name": "go-warriors",
+	"version": "1.0.0",
+	"description": "Go Warriors",
+	"author": {
+		"name": "Oliver Plummer",
+		"email": "oliver.plummer@outlook.com",
+		"url": "https://oliverplummer.com.au"
+	},
+	"license": "MIT",
+	"private": true,
+	"type": "module",
+	"bugs": {
+		"url": "https://github.com/olyop/go-warriors/issues",
+		"email": "oliver.plummer@outlook.com"
+	},
+	"volta": {
+		"node": "21.6.2",
+		"npm": "10.4.0"
+	},
+	"engines": {
+		"node": "21.6.2",
+		"npm": "10.4.0"
+	},
+	"scripts": {
+		"dev": "next dev --turbo --experimental-https --experimental-https-key /home/op/.mkcert/localhost-key.pem --experimental-https-cert /home/op/.mkcert/localhost.pem",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint"
+	},
+	"dependencies": {
+		"@heroicons/react": "2.1.3",
+		"classnames": "2.5.1",
+		"concurrent-processor": "1.0.2",
+		"js-cookie": "3.0.5",
+		"next": "14.2.1",
+		"react": "18.2.0",
+		"react-dom": "18.2.0",
+		"swr": "2.2.5",
+		"tailwindcss": "3.4.3"
+	},
+	"devDependencies": {
+		"@oly_op/eslint-config": "6.7.20",
+		"@oly_op/eslint-config-react": "4.3.6",
+		"@oly_op/tsconfig": "1.2.1",
+		"@types/js-cookie": "3.0.6",
+		"@types/node": "20.12.7",
+		"@types/react": "18.2.78",
+		"@types/react-dom": "18.2.25",
+		"autoprefixer": "10.4.19",
+		"daisyui": "4.10.1",
+		"dotenv-cli": "7.4.1",
+		"postcss": "8.4.38",
+		"postcss-load-config": "5.0.3"
+	},
+	"overrides": {
+		"@typescript-eslint/eslint-plugin": "7.1.0",
+		"@typescript-eslint/parser": "7.1.0"
+	}
+}
