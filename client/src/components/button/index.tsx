@@ -6,6 +6,7 @@ export function Button({
 	text,
 	rightIcon,
 	groupLeft = false,
+	hideTextSm = false,
 	className,
 	spanClassName,
 	iconClassName,
@@ -18,7 +19,7 @@ export function Button({
 	const leftValue = (
 		<Fragment>
 			{leftIcon && leftIcon(cx("size-6", spanClassName, iconClassName, leftIconClassName))}
-			{text && <span className={cx(spanClassName, textClassName)}>{text}</span>}
+			{text && <span className={cx(hideTextSm ? "hidden" : "", spanClassName, textClassName)}>{text}</span>}
 		</Fragment>
 	);
 
@@ -33,6 +34,7 @@ export function Button({
 			className={cx(
 				"btn motion-reduce:no-animation",
 				text === undefined && (leftIcon || rightIcon) && "max-sm:btn-circle",
+				hideTextSm && "btn-circle",
 				className,
 			)}
 		>
@@ -46,8 +48,8 @@ export interface ButtonProps extends ButtonInternalProps {
 	leftIcon?: (iconClassName: string) => ReactNode;
 	text?: ReactNode;
 	rightIcon?: (iconClassName: string) => ReactNode;
-	hideTextSm?: boolean;
 	groupLeft?: boolean;
+	hideTextSm?: boolean;
 	className?: string | undefined;
 	spanClassName?: string | undefined;
 	iconClassName?: string | undefined;

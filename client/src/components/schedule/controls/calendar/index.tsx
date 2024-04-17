@@ -9,7 +9,10 @@ import { Button } from "@/components/button";
 import { dateDateFormatter, dateMonthLongFormatter } from "@/shared/intl";
 import { generateCalendar, isDateToday } from "@/shared/utilities/date";
 
-export function GameControlsCalendar({ startingWeek: startingWeekParent, onDateChange }: GameControlsCalendarProps) {
+export function ScheduleControlsCalendar({
+	startingWeek: startingWeekParent,
+	onDateChange,
+}: ScheduleControlsCalendarProps) {
 	const [startingWeek, setStartingWeek] = useState(startingWeekParent);
 
 	const calendar = generateCalendar(startingWeek);
@@ -76,7 +79,7 @@ export function GameControlsCalendar({ startingWeek: startingWeekParent, onDateC
 									</Fragment>
 								}
 								className={cx(
-									"btn-ghost bg-base-100 hover:bg-base-300 flex h-auto min-h-0 rounded-none p-2 sm:p-3",
+									"btn-ghost bg-base-100 hover:bg-base-300 flex h-auto min-h-0 items-start justify-start rounded-none p-2 sm:p-3",
 									isDateToday(day.date) && "bg-base-200",
 								)}
 							/>
@@ -110,7 +113,7 @@ export function GameControlsCalendar({ startingWeek: startingWeekParent, onDateC
 	);
 }
 
-export interface GameControlsCalendarProps {
+export interface ScheduleControlsCalendarProps {
 	startingWeek: number;
 	onDateChange: (value: Date, startingWeek: number) => void;
 }

@@ -4,6 +4,7 @@
 		"skipLibCheck": true,
 		"noEmit": true,
 		"module": "ESNext",
+		"allowJs": true,
 		"moduleResolution": "Bundler",
 		"resolveJsonModule": true,
 		"isolatedModules": true,
@@ -20,6 +21,6 @@
 		},
 		"lib": ["DOM", "DOM.Iterable", "ESNext"]
 	},
-	"include": ["next-env.d.ts", "src", ".next/types/**/*.ts"],
+	"include": ["next-env.d.ts", "src", "public/scripts/theme-script.js", ".next/types/**/*.ts"],
 	"exclude": ["node_modules"]
 }

@@ -10,12 +10,12 @@ import { Button } from "@/components/button";
 import { GamesFilter } from "../../types";
 import { splitTeamsByConferenceAndDivision } from "./teams-helpers";
 
-export function GameControlsFilter({
+export function ScheduleControlsFilter({
 	filter,
 	onStatusSelect,
 	onTeamsSelect,
 	onTeamSelect,
-}: Readonly<GameControlsFilterProps>) {
+}: Readonly<ScheduleControlsFilterProps>) {
 	const abortControllerRef = useRef(new AbortController());
 
 	const [teams, setTeams] = useState<NBAAPITeam[] | string | null>(null);
@@ -179,7 +179,7 @@ export function GameControlsFilter({
 	);
 }
 
-export interface GameControlsFilterProps {
+export interface ScheduleControlsFilterProps {
 	filter: GamesFilter | null;
 	onStatusSelect: (status: string) => void;
 	onTeamSelect: (teamID: number) => void;

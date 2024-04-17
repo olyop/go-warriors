@@ -11,14 +11,19 @@ import { Button as SharedButton } from "@/components/button";
 import { Modal, useModal } from "@/components/modal";
 
 import { GamesFilter } from "../types";
-import { GameControlsCalendar as Calendar } from "./calendar";
-import { GamesControlsContainer as Container } from "./container";
-import { GamesControlsButton as ControlButton } from "./control-button";
-import { GameControlsFilter as Filter } from "./filter";
-import { GameControlsFilterButtons as FilterButtons } from "./filter/buttons";
-import { GamesControlsWeekDays as WeekDays } from "./week";
+import { ScheduleControlsCalendar as Calendar } from "./calendar";
+import { ScheduleControlsContainer as Container } from "./container";
+import { ScheduleControlsButton as ControlButton } from "./control-button";
+import { ScheduleControlsFilter as Filter } from "./filter";
+import { ScheduleControlsFilterButtons as FilterButtons } from "./filter/buttons";
+import { ScheduleControlsWeekDays as WeekDays } from "./week";
 
-export function GamesControlBar({ date, filter: filterParent, onDateSelect, onFilterChange }: GamesControlsProps) {
+export function ScheduleControls({
+	date,
+	filter: filterParent,
+	onDateSelect,
+	onFilterChange,
+}: Readonly<ScheduleControlsProps>) {
 	const [startingWeek, setStartingWeek] = useState(0);
 	const [filter, setFilter] = useState<GamesFilter | null>(filterParent);
 
@@ -186,7 +191,7 @@ export function GamesControlBar({ date, filter: filterParent, onDateSelect, onFi
 	);
 }
 
-export interface GamesControlsProps {
+export interface ScheduleControlsProps {
 	date: Date | null;
 	filter: GamesFilter | null;
 	onFilterChange: (filter: GamesFilter | null) => void;

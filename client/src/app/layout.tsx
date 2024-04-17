@@ -3,7 +3,6 @@ import { createElement } from "react";
 
 import { Content } from "@/components/content";
 import { Header } from "@/components/header";
-import { ThemeScript } from "@/lib/theme-script";
 import { ScoresProvider } from "@/providers/scores-providers";
 
 import "./globals.css";
@@ -21,7 +20,7 @@ export default function RootLayout({
 	return (
 		<html suppressHydrationWarning lang="en" className="!overflow-y-scroll">
 			<head>
-				<ThemeScript />
+				<script src="/scripts/theme-script.js" />
 			</head>
 			<body suppressHydrationWarning>
 				<ScoresProvider>

@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const daisyui = require("daisyui");
+import daisyui from "daisyui";
+import { Config } from "tailwindcss";
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+const config: Config = {
 	content: ["./src/**/*.{ts,tsx}"],
 	plugins: [daisyui],
 	darkMode: "selector",
@@ -18,6 +17,7 @@ module.exports = {
 			},
 			height: {
 				header: "5rem",
+				content: "calc(100vh - 5rem)",
 			},
 			screens: {
 				tiny: "350px",
@@ -57,3 +57,5 @@ module.exports = {
 		},
 	},
 };
+
+export default config;

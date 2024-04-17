@@ -1,11 +1,17 @@
 /* eslint-disable unicorn/prefer-dom-node-remove */
-export function getScrollbarWidth(element: HTMLElement | null) {
-	if (element && element.scrollHeight === element.clientHeight) {
-		return 0;
-	}
-
+export function getScrollbarWidth(inputElement: HTMLElement | null) {
 	// default to Chrome scrollbar width
 	if (typeof document === "undefined") {
+		return 17;
+	}
+
+	let element = inputElement;
+
+	if (element === null) {
+		element = document.documentElement;
+	}
+
+	if (element.scrollHeight === element.clientHeight) {
 		return 0;
 	}
 

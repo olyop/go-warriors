@@ -14,11 +14,16 @@ export function Modal({
 	content,
 	buttons,
 	onClose,
+	hideCloseButton = false,
 	disableMinWidth = false,
 	disableCloseOnEscape = false,
+	boxClassName,
+	modalContentClassName,
 	contentClassName,
 	buttonsClassName,
 }: ModalProps) {
+	const [mounted, setMounted] = useState(false);
+
 	const contentRef = useRef<HTMLDivElement>(null);
 	const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -37,6 +42,10 @@ export function Modal({
 	}
 
 	useEffect(() => {
+		setMounted(true);
+	}, []);
+
+	useEffect(() => {
 		if (!escapePress) return;
 
 		handleClose();
@@ -50,6 +59,10 @@ export function Modal({
 
 	const scrollBarWidth = getScrollbarWidth(contentRef.current);
 
+	if (!mounted) {
+		return null;
+	}
+
 	return createPortal(
 		<dialog
 			open={open}
@@ -61,21 +74,26 @@ export function Modal({
 				className={cx(
 					"modal-box z-100 rounded-box relative overflow-visible p-0",
 					disableMinWidth || "sm:!min-w-[45rem]",
+					boxClassName,
 				)}
 			>
-				<Button
-					onClick={handleClose}
-					leftIcon={iconClassName => <XMarkIcon className={iconClassName} />}
-					textClassName="flex items-center gap-3 justify-center"
-					className="btn-neutral absolute -right-2 -top-2 h-auto min-h-0 items-center justify-center gap-2 px-3 py-2 uppercase leading-none sm:-right-6 sm:-top-6 sm:gap-3 sm:!px-4 sm:!py-3"
-					text={
-						<Fragment>
-							<span className="-mt-0.5 pr-1 leading-none sm:pr-0">Close</span>
-							<span className="hidden rounded border px-1 py-0.5 text-[0.8rem] sm:block">ESC</span>
-						</Fragment>
-					}
-				/>
-				<div className="flex flex-col gap-4 overflow-y-auto py-4 !pr-0 pl-4 sm:gap-8 sm:p-8">
+				{hideCloseButton || (
+					<Button
+						onClick={handleClose}
+						leftIcon={iconClassName => <XMarkIcon className={iconClassName} />}
+						textClassName="flex items-center gap-3 justify-center"
+						className="btn-neutral absolute -right-2 -top-2 h-auto min-h-0 items-center justify-center gap-2 px-3 py-2 uppercase leading-none sm:-right-6 sm:-top-6 sm:gap-3 sm:!px-4 sm:!py-3"
+						text={
+							<Fragment>
+								<span className="-mt-0.5 pr-1 leading-none sm:pr-0">Close</span>
+								<span className="hidden rounded border px-1 py-0.5 text-[0.8rem] sm:block">ESC</span>
+							</Fragment>
+						}
+					/>
+				)}
+				<div
+					className={cx("flex flex-col gap-4 overflow-y-auto py-4 !pr-0 pl-4 sm:gap-8 sm:p-8", modalContentClassName)}
+				>
 					{title !== undefined && icon !== undefined && (
 						<div
 							suppressHydrationWarning
@@ -90,7 +108,7 @@ export function Modal({
 						<div
 							ref={contentRef}
 							className={cx(
-								"max-h-[calc(100vh-20rem)] overflow-y-auto overflow-x-hidden pr-4 sm:max-h-[calc(100vh-25rem)] sm:gap-8 sm:pr-8",
+								"max-h-[calc(100vh-20rem)] overflow-y-auto overflow-x-hidden pr-4 sm:max-h-[calc(100vh-25rem)] sm:pr-8",
 								contentClassName,
 							)}
 						>
@@ -172,8 +190,11 @@ interface ModalProps {
 	content?: ReactNode | undefined;
 	buttons?: ReactNode;
 	onClose?: () => void;
+	hideCloseButton?: boolean;
 	disableMinWidth?: boolean;
 	disableCloseOnEscape?: boolean;
+	boxClassName?: string | undefined;
+	modalContentClassName?: string | undefined;
 	contentClassName?: string | undefined;
 	buttonsClassName?: string | undefined;
 }

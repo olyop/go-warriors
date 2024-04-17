@@ -6,7 +6,7 @@ import { Button } from "@/components/button";
 import { dateDateFormatter, dateDayFormatter, dateMonthFormatter } from "@/shared/intl";
 import { generateWeekDays, isDateToday, isSameDay } from "@/shared/utilities/date";
 
-export function GamesControlsWeekDays({ date, startingWeek, onSelectDay }: GamesControlsWeekDaysProps) {
+export function ScheduleControlsWeekDays({ date, startingWeek, onSelectDay }: ScheduleControlsWeekDaysProps) {
 	return (
 		<div className="tabs sm:!tabs-bordered border-base-300 grid h-full grow grid-cols-7 justify-self-stretch border-x-2 sm:border-0">
 			{generateWeekDays(startingWeek).map(day => (
@@ -42,7 +42,7 @@ export function GamesControlsWeekDays({ date, startingWeek, onSelectDay }: Games
 	);
 }
 
-export interface GamesControlsWeekDaysProps {
+export interface ScheduleControlsWeekDaysProps {
 	date: Date | null;
 	startingWeek: number;
 	onSelectDay: (value: Date) => () => void;

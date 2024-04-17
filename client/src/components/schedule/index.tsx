@@ -8,10 +8,10 @@ import { NBAAPIGame } from "@/clients/nba/types";
 import { Games } from "@/components/games";
 import { dateEndOfDay, dateStartOfDay, dateToUnixTimeSeconds } from "@/shared/utilities/date";
 
-import { GamesControlBar } from "./control-bar";
+import { ScheduleControls } from "./controls";
 import { GamesFilter, GamesState } from "./types";
 
-export default function HomePage() {
+export default function Schedule() {
 	const abortControllerRef = useRef(new AbortController());
 
 	const [games, setGames] = useState<GamesState>(null);
@@ -84,9 +84,14 @@ export default function HomePage() {
 
 	return (
 		<div className="flex flex-col items-center justify-center gap-8 pb-4 pt-20 sm:px-8 sm:pt-6 md:pb-8">
-			<GamesControlBar date={date} filter={filter} onDateSelect={handleSelectDay} onFilterChange={handleFilterChange} />
+			<ScheduleControls
+				date={date}
+				filter={filter}
+				onDateSelect={handleSelectDay}
+				onFilterChange={handleFilterChange}
+			/>
 			{games === null ? (
-				<Games games={new Array(12).fill(undefined)} className="size-full px-4 sm:px-0" />
+				<Games games={new Array(6).fill(undefined)} className="size-full px-4 sm:px-0" />
 			) : typeof games === "string" ? (
 				<p className="text-red-500">{games}</p>
 			) : games.length === 0 ? (

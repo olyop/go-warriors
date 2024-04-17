@@ -3,7 +3,11 @@ import { Fragment } from "react";
 
 import { Button } from "@/components/button";
 
-export function GameControlsFilterButtons({ onApply, onReset, onCancel }: GameControlsFilterButtonsProps) {
+export function ScheduleControlsFilterButtons({
+	onApply,
+	onReset,
+	onCancel,
+}: Readonly<ScheduleControlsFilterButtonsProps>) {
 	return (
 		<Fragment>
 			<Button
@@ -28,7 +32,7 @@ export function GameControlsFilterButtons({ onApply, onReset, onCancel }: GameCo
 	);
 }
 
-export interface GameControlsFilterButtonsProps {
+export interface ScheduleControlsFilterButtonsProps {
 	onApply: () => void;
 	onReset: () => void;
 	onCancel: () => void;

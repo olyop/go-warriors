@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 import { Button } from "@/components/button";
 
-export function GamesControlsButton({
+export function ScheduleControlsButton({
 	text,
 	icon,
 	onClick,
@@ -14,12 +14,12 @@ export function GamesControlsButton({
 		<Button
 			text={text}
 			onClick={onClick}
+			leftIcon={iconClassName => icon(cx(iconClassName, "size-[1.05rem]"))}
 			className={cx(
-				"sm:btn-circle h-full !min-h-0 !w-auto flex-col items-center gap-0.5 !rounded-none p-2 sm:h-auto",
+				"sm:rounded-btn h-full min-h-0 !w-auto flex-col items-center gap-1 rounded-none p-2 sm:h-auto",
 				removeButtonGhost || "btn-ghost",
 				className,
 			)}
-			leftIcon={iconClassName => icon(cx(iconClassName, "size-[1.05rem]"))}
 		/>
 	);
 }
