@@ -32,8 +32,8 @@ export function Button({
 			{...props}
 			type="button"
 			className={cx(
-				"btn motion-reduce:no-animation",
-				text === undefined && (leftIcon || rightIcon) && "max-sm:btn-circle",
+				"btn motion-reduce:no-animation max-sm:!text-xs",
+				text === undefined && (leftIcon || rightIcon) && "btn-circle",
 				hideTextSm && "btn-circle",
 				className,
 			)}

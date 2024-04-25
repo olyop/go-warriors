@@ -2,6 +2,9 @@ package nba
 
 // Response is the response from the NBA API
 type Response[T interface{}] struct {
+	// Message corresponds to the JSON schema field "message".
+	Message string `json:"message,omitempty"`
+
 	// Errors corresponds to the JSON schema field "errors".
 	Errors []interface{} `json:"errors,omitempty"`
 

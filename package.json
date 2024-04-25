@@ -26,7 +26,10 @@
 		"prettier": "prettier --write .",
 		"client-dev": "cd client && clear && npm run dev",
 		"server-dev": "cd server && clear && air && cd ..",
-		"dev": "tmux new-session 'npm run client-dev' \\; split-window 'npm run server-dev'"
+		"client-stag": "cd client && clear && npm run build && npm run start",
+		"server-stag": "cd server && go run .",
+		"dev": "tmux new-session 'npm run client-dev' \\; split-window 'npm run server-dev'",
+		"stag": "tmux new-session 'npm run client-stag' \\; split-window 'npm run server-stag'"
 	},
 	"devDependencies": {
 		"@oly_op/cspell-dict": "1.1.10",

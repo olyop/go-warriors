@@ -1,22 +1,31 @@
 /* eslint-disable no-continue */
+import { formatDateToISO } from "@/shared/utilities/date";
+
 import { NBAAPIResponse } from "./types";
 
-export const fetchNBAAPI = async <T>(path: string, options: FetchNBAAPIOptions) => {
-	const hostname = window.location.hostname === "localhost" ? "localhost" : "192.168.1.79";
+export const fetchNBAAPI = async <T>(path: string, options?: FetchNBAAPIOptions) => {
+	const hostname = "localhost";
 
-	const url = new URL(`/api/v1${path}`, `https://${hostname}:8443`);
+	const url = new URL(`/api/v1${path}`, `http://${hostname}:8080`);
 
-	if (options.params) {
-		for (const [key, value] of Object.entries(options.params)) {
-			if (value === null) continue;
+	if (options?.params) {
+		for (const [key, objectValue] of Object.entries(options.params)) {
+			if (objectValue === null) continue;
+
+			let value: string;
+
+			if (objectValue instanceof Date) {
+				value = formatDateToISO(objectValue);
+			} else {
+				value = objectValue.toString();
+			}
 
 			url.searchParams.append(key, value.toString());
 		}
 	}
 
 	const request = new Request(url, {
-		signal: options.signal ?? null,
-		cache: options.enableCache ? "force-cache" : "no-store",
+		cache: options?.enableCache ? "force-cache" : "no-cache",
 	});
 
 	request.headers.set("Accept", "application/json");
@@ -37,10 +46,10 @@ export const fetchNBAAPI = async <T>(path: string, options: FetchNBAAPIOptions) 
 	}
 };
 
-export type FetchNBAAPIParams = Record<string, string | number | null>;
+export type FetchNBAAPIParams = Record<string, Date | string | number | null>;
 
 export interface FetchNBAAPIOptions {
 	enableCache?: boolean;
-	params?: Record<string, string | number | null>;
+	params?: Record<string, Date | string | number | null>;
 	signal?: AbortSignal;
 }

@@ -12,6 +12,7 @@ denver
 detroit
 godotenv
 golint
+gonic
 gowarriors
 houston
 indiana

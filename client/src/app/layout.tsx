@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { createElement } from "react";
+import { ReactNode } from "react";
 
-import { Content } from "@/components/content";
 import { Header } from "@/components/header";
-import { ScoresProvider } from "@/providers/scores-providers";
+import { ScoresScript } from "@/lib/scores-scripts";
+import { ScrollbarScript } from "@/lib/scrollbar-script";
+import { ThemeScript } from "@/lib/theme-script";
 
 import "./globals.css";
 
@@ -15,18 +16,20 @@ export const metadata: Metadata = {
 export default function RootLayout({
 	children,
 }: Readonly<{
-	children: React.ReactNode;
+	children: ReactNode;
 }>) {
 	return (
-		<html suppressHydrationWarning lang="en" className="!overflow-y-scroll">
+		<html suppressHydrationWarning lang="en" className="group !overflow-y-scroll" data-scores="true">
 			<head>
-				<script src="/scripts/theme-script.js" />
+				<ThemeScript />
+				<ScoresScript />
+				<ScrollbarScript />
 			</head>
 			<body suppressHydrationWarning>
-				<ScoresProvider>
-					<Header />
-					<Content>{children}</Content>
-				</ScoresProvider>
+				<Header />
+				<main className="pt-header min-h-screen w-full">
+					<div className="mx-auto min-h-[calc(100vh-4rem)] w-full sm:container">{children}</div>
+				</main>
 			</body>
 		</html>
 	);

@@ -1,3 +1,5 @@
+"use client";
+
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-autofocus, jsx-a11y/click-events-have-key-events, max-len */
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import cx from "classnames";
@@ -5,7 +7,6 @@ import { Fragment, MouseEvent, ReactNode, createElement, useEffect, useRef, useS
 import { createPortal } from "react-dom";
 
 import { Button } from "@/components/button";
-import { getScrollbarWidth } from "@/shared/utilities/other";
 
 export function Modal({
 	open,
@@ -57,23 +58,21 @@ export function Modal({
 		contentRef.current.scrollTop = 0;
 	}, [open]);
 
-	const scrollBarWidth = getScrollbarWidth(contentRef.current);
-
 	if (!mounted) {
 		return null;
 	}
 
+	const marginRight =
+		contentRef.current && contentRef.current.scrollHeight > contentRef.current.clientHeight
+			? "mr-[var(--scrollbar-width)]"
+			: null;
+
 	return createPortal(
-		<dialog
-			open={open}
-			ref={dialogRef}
-			onMouseDown={handleDialogClick}
-			className="modal z-50 backdrop-blur-2xl dark:backdrop-blur"
-		>
+		<dialog open={open} ref={dialogRef} onMouseDown={handleDialogClick} className="modal z-50 backdrop-blur-2xl">
 			<div
 				className={cx(
 					"modal-box z-100 rounded-box relative overflow-visible p-0",
-					disableMinWidth || "sm:!min-w-[45rem]",
+					disableMinWidth ? "w-auto !min-w-0" : "sm:!min-w-[55rem]",
 					boxClassName,
 				)}
 			>
@@ -82,10 +81,10 @@ export function Modal({
 						onClick={handleClose}
 						leftIcon={iconClassName => <XMarkIcon className={iconClassName} />}
 						textClassName="flex items-center gap-3 justify-center"
-						className="btn-neutral absolute -right-2 -top-2 h-auto min-h-0 items-center justify-center gap-2 px-3 py-2 uppercase leading-none sm:-right-6 sm:-top-6 sm:gap-3 sm:!px-4 sm:!py-3"
+						className="max-sm:btn-ghost sm:btn-neutral absolute right-4 top-[1rem] h-auto min-h-0 items-center justify-center gap-2 px-0 uppercase leading-none sm:-right-6 sm:-top-6 sm:gap-3 sm:!px-4 sm:!py-3 sm:px-3 sm:py-2"
 						text={
 							<Fragment>
-								<span className="-mt-0.5 pr-1 leading-none sm:pr-0">Close</span>
+								<span className="-mt- pr-1 leading-none sm:pr-0">Close</span>
 								<span className="hidden rounded border px-1 py-0.5 text-[0.8rem] sm:block">ESC</span>
 							</Fragment>
 						}
@@ -95,11 +94,7 @@ export function Modal({
 					className={cx("flex flex-col gap-4 overflow-y-auto py-4 !pr-0 pl-4 sm:gap-8 sm:p-8", modalContentClassName)}
 				>
 					{title !== undefined && icon !== undefined && (
-						<div
-							suppressHydrationWarning
-							style={{ marginRight: content && scrollBarWidth > 0 ? `${scrollBarWidth}px` : undefined }}
-							className={cx("flex items-center gap-2 sm:gap-4", scrollBarWidth === 0 && "pr-4 sm:pr-8")}
-						>
+						<div suppressHydrationWarning className={cx("flex items-center gap-2 pr-4 sm:gap-4 sm:pr-8", marginRight)}>
 							{icon("size-6 sm:size-8")}
 							<h1 className="text-xl sm:text-2xl">{title}</h1>
 						</div>
@@ -118,8 +113,7 @@ export function Modal({
 					{buttons && (
 						<div
 							suppressHydrationWarning
-							style={{ marginRight: content && scrollBarWidth > 0 ? `${scrollBarWidth}px` : undefined }}
-							className={cx("flex items-center justify-end gap-2 sm:gap-4", "pr-4 sm:pr-8", buttonsClassName)}
+							className={cx("flex items-center justify-end gap-2 pr-4 sm:pr-8", marginRight, buttonsClassName)}
 						>
 							{buttons}
 						</div>

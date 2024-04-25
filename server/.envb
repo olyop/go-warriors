@@ -1,0 +1,4 @@
+TLS_CERT_PATH=/home/op/.mkcert/localhost.pem
+TLS_KEY_PATH=/home/op/.mkcert/localhost-key.pem
+
+RAPIDAPI_API_KEY=864f7a719amsh3a199c1b702c3b0p1aad91jsn138f76ce712d

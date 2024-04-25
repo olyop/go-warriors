@@ -48,5 +48,9 @@ func Query[T interface{}](nba *NBA, path string, params map[string]string) (Resp
 		return result, err
 	}
 
+	if result.Message != "" {
+		return result, fmt.Errorf(result.Message)
+	}
+
 	return result, err
 }

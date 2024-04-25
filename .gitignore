@@ -5,9 +5,10 @@ client/.next
 client/out
 client/build
 client/.vercel
+client/.env.development.local
 
 server/gowarriors
 server/tmp
-server/.env.development.local
+server/.env
 
 .DS_Store

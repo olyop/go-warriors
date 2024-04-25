@@ -1,3 +1,5 @@
+"use client";
+
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 import { ComputerDesktopIcon, MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 import cx from "classnames";
@@ -25,28 +27,42 @@ export default function HeaderThemeSwitcher() {
 	useEffect(() => {
 		if (theme === null) return;
 
-		if (theme === "dark") {
-			document.documentElement.dataset["theme"] = "synthwave";
-			document.documentElement.classList.add("dark");
-		} else {
-			document.documentElement.dataset["theme"] = "cupcake";
-			document.documentElement.classList.remove("dark");
-		}
-
 		if (initializedValue.current) {
 			initializedValue.current = false;
 			return;
 		}
 
 		localStorage.setItem("theme", theme);
+
+		const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+		if (theme === "system") {
+			if (prefersDark) {
+				document.documentElement.dataset.theme = "synthwave";
+				document.documentElement.classList.add("dark");
+			} else {
+				document.documentElement.dataset.theme = "cupcake";
+				document.documentElement.classList.remove("dark");
+			}
+
+			return;
+		}
+
+		if (theme === "dark") {
+			document.documentElement.dataset.theme = "synthwave";
+			document.documentElement.classList.add("dark");
+
+			return;
+		}
+
+		document.documentElement.dataset.theme = "cupcake";
+		document.documentElement.classList.remove("dark");
 	}, [theme]);
 
 	useEffect(() => {
 		initializedValue.current = true;
 		setTheme(localStorage.getItem("theme") as Theme);
 	}, []);
-
-	if (!theme) return null;
 
 	return (
 		<Fragment>
@@ -56,7 +72,7 @@ export default function HeaderThemeSwitcher() {
 				className="btn-ghost"
 				onClick={openModal}
 				leftIcon={iconClassName =>
-					theme === "system" ? (
+					theme === "system" || theme === null ? (
 						<ComputerDesktopIcon className={iconClassName} />
 					) : theme === "light" ? (
 						<SunIcon className={iconClassName} />
@@ -66,10 +82,10 @@ export default function HeaderThemeSwitcher() {
 				}
 			/>
 			<Modal
+				disableMinWidth
 				hideCloseButton
 				open={isModalOpen}
 				onClose={closeModal}
-				boxClassName="!rounded-none"
 				modalContentClassName="!p-0"
 				contentClassName="flex flex-col !pr-0"
 				content={
@@ -78,19 +94,25 @@ export default function HeaderThemeSwitcher() {
 							text="System"
 							onClick={handleSelectTheme("system")}
 							leftIcon={iconClassName => <ComputerDesktopIcon className={iconClassName} />}
-							className={cx("rounded-none", theme === "system" ? "btn-primary" : "btn-ghost")}
+							className={cx(
+								"rounded-t-box h-auto gap-4 rounded-none px-8 py-4",
+								theme === "system" ? "btn-primary" : "btn-ghost",
+							)}
 						/>
 						<Button
 							text="Light"
 							onClick={handleSelectTheme("light")}
 							leftIcon={iconClassName => <SunIcon className={iconClassName} />}
-							className={cx("rounded-none", theme === "light" ? "btn-primary" : "btn-ghost")}
+							className={cx("h-auto gap-4 rounded-none px-8 py-4", theme === "light" ? "btn-primary" : "btn-ghost")}
 						/>
 						<Button
 							text="Dark"
 							onClick={handleSelectTheme("dark")}
 							leftIcon={iconClassName => <MoonIcon className={iconClassName} />}
-							className={cx("rounded-none", theme === "dark" ? "btn-primary" : "btn-ghost")}
+							className={cx(
+								"rounded-b-box h-auto gap-4 rounded-none px-8 py-4",
+								theme === "dark" ? "btn-primary" : "btn-ghost",
+							)}
 						/>
 					</Fragment>
 				}

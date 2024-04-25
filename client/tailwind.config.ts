@@ -13,11 +13,13 @@ const config: Config = {
 	theme: {
 		extend: {
 			padding: {
-				header: "5rem",
+				header: "var(--header-height)",
+			},
+			margin: {
+				header: "var(--header-height)",
 			},
 			height: {
-				header: "5rem",
-				content: "calc(100vh - 5rem)",
+				header: "var(--header-height)",
 			},
 			screens: {
 				tiny: "350px",

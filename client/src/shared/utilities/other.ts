@@ -1,15 +1,6 @@
 /* eslint-disable unicorn/prefer-dom-node-remove */
-export function getScrollbarWidth(inputElement: HTMLElement | null) {
-	// default to Chrome scrollbar width
-	if (typeof document === "undefined") {
-		return 17;
-	}
-
-	let element = inputElement;
-
-	if (element === null) {
-		element = document.documentElement;
-	}
+export function getScrollbarWidth() {
+	const element = document.documentElement as HTMLHtmlElement;
 
 	if (element.scrollHeight === element.clientHeight) {
 		return 0;
@@ -19,8 +10,6 @@ export function getScrollbarWidth(inputElement: HTMLElement | null) {
 	const outer = document.createElement("div");
 	outer.style.visibility = "hidden";
 	outer.style.overflow = "scroll"; // forcing scrollbar to appear
-	// @ts-expect-error
-	outer.style.msOverflowStyle = "scrollbar"; // needed for WinJS apps
 	document.body.append(outer);
 
 	// Creating inner element and placing it in the container

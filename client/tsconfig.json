@@ -21,6 +21,6 @@
 		},
 		"lib": ["DOM", "DOM.Iterable", "ESNext"]
 	},
-	"include": ["next-env.d.ts", "src", "public/scripts/theme-script.js", ".next/types/**/*.ts"],
+	"include": ["next-env.d.ts", "src", "src/app/scripts/theme-script.js", ".next/types/**/*.ts"],
 	"exclude": ["node_modules"]
 }
