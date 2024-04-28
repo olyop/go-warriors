@@ -7,7 +7,6 @@ import (
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/awslabs/aws-lambda-go-api-proxy/gin"
-	"github.com/gin-contrib/requestid"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
@@ -47,7 +46,6 @@ func createServer() *gin.Engine {
 	g := gin.New()
 	g.Use(gin.Logger())
 	g.Use(gin.Recovery())
-	g.Use(requestid.New())
 
 	BuildRoutes(g, context)
 
