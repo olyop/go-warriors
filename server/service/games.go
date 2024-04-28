@@ -2,17 +2,17 @@ package service
 
 import (
 	"gowarriors/integrations/nba"
+	"gowarriors/integrations/nba/response"
 	"gowarriors/schema"
 	"gowarriors/service/mappers"
-	"strconv"
 	"sync"
 	"time"
 )
 
 // RetreiveGames retrieves games from the NBA API
-func RetreiveGames(client nba.NBA, date time.Time, teamsFilter []int, statusFilter string) ([]schema.GoWarriorsAPIGame, error) {
+func RetreiveGames(client nba.NBA, options RetreiveGamesOptions) ([]schema.GoWarriorsAPIGame, error) {
 	wg := sync.WaitGroup{}
-	ch := make(chan result, 2)
+	ch := make(chan gameResult, 2)
 
 	season := mappers.DetermineSeason()
 
@@ -22,47 +22,56 @@ func RetreiveGames(client nba.NBA, date time.Time, teamsFilter []int, statusFilt
 		go func(index int) {
 			defer wg.Done()
 
-			dateParam := date.AddDate(0, 0, index)
-			dateFormatted := dateParam.Format("2006-01-02")
+			dateParam := options.Date.AddDate(0, 0, index)
 
-			params := map[string]string{
-				"season": season,
-				"league": NBALeague,
-				"date":   dateFormatted,
+			parameters := response.NBAGamesParameters{
+				Season: season,
+				League: NBALeague,
+				Date:   dateParam.Format("2006-01-02"),
 			}
 
-			data, err := client.GetGames(params)
+			data, err := client.GetGames(parameters)
 
-			ch <- result{res: data.Response, err: err}
+			ch <- gameResult{result: data, err: err}
 		}(i)
 	}
 
 	wg.Wait()
 	close(ch)
 
-	nbaGames := make([]nba.Game, 0)
-
-	for result := range ch {
-		if result.err != nil {
-			return nil, result.err
-		}
-
-		nbaGames = append(nbaGames, result.res...)
+	nbaGames, err := pullOutGames(ch)
+	if err != nil {
+		return nil, err
 	}
 
 	games := mappers.MapGames(nbaGames)
+	games = filterGames(games, options)
 
-	return filterGames(games, teamsFilter, statusFilter), nil
+	return games, nil
 }
 
-func filterGames(games []schema.GoWarriorsAPIGame, teamsFilter []int, statusFilter string) []schema.GoWarriorsAPIGame {
+func pullOutGames(c chan gameResult) ([]response.NBAGameResponse, error) {
+	games := make([]response.NBAGameResponse, 0)
+
+	for game := range c {
+		if game.err != nil {
+			return nil, game.err
+		}
+
+		games = append(games, game.result...)
+	}
+
+	return games, nil
+}
+
+func filterGames(games []schema.GoWarriorsAPIGame, options RetreiveGamesOptions) []schema.GoWarriorsAPIGame {
 	gamesFiltered := make([]schema.GoWarriorsAPIGame, 0)
 
 	for _, game := range games {
-		if teamsFilter != nil {
+		if options.Teams != nil {
 			keep := false
 
-			for _, teamID := range teamsFilter {
+			for _, teamID := range options.Teams {
 				if game.Home.Team.TeamID == teamID || game.Away.Team.TeamID == teamID {
 					keep = true
 					break
@@ -74,8 +83,8 @@ func filterGames(games []schema.GoWarriorsAPIGame, teamsFilter []int, statusFilt
 			}
 		}
 
-		if statusFilter != "" {
-			if statusFilter != game.Status.Status {
+		if options.Status != "" {
+			if options.Status != game.Status.Status {
 				continue
 			}
 		}
@@ -86,24 +95,14 @@ func filterGames(games []schema.GoWarriorsAPIGame, teamsFilter []int, statusFilt
 	return gamesFiltered
 }
 
-type result struct {
-	res []nba.Game
-	err error
+// RetreiveGamesOptions is the NBA league
+type RetreiveGamesOptions struct {
+	Date   time.Time
+	Teams  []int
+	Status string
 }
 
-// RetreiveGame retrieves a game from the NBA API
-func RetreiveGame(client nba.NBA, id int) (schema.GoWarriorsAPIGame, error) {
-	params := map[string]string{
-		"id": strconv.Itoa(id),
-	}
-
-	data, err := client.GetGames(params)
-
-	if err != nil {
-		return schema.GoWarriorsAPIGame{}, err
-	}
-
-	game := mappers.MapGame(data.Response[0])
-
-	return game, nil
+type gameResult struct {
+	result []response.NBAGameResponse
+	err    error
 }

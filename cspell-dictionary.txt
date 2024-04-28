@@ -2,6 +2,7 @@ apifootballv
 apinbav
 apiv
 atlanta
+awslabs
 boston
 brooklyn
 cleveland
@@ -10,6 +11,9 @@ daisyui
 dallas
 denver
 detroit
+DREB
+feets
+Feets
 godotenv
 golint
 gonic
@@ -22,12 +26,15 @@ miami
 milwaukee
 minnesota
 nbaapisportsio
+nextjs
 nolint
 oklahoma
+OREB
 orlando
 philadelphia
 prapidapicom
 rapidapi
+requestid
 sacramento
 unmarshalling
 utah

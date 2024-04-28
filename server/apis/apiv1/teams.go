@@ -8,16 +8,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// GetTeams retrieves all NBA teams
-func GetTeams(context *globals.Context) func(c *gin.Context) {
+// TeamsHandler retrieves all NBA teams
+func TeamsHandler(context *globals.Context) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		teams, err := service.RetreiveTeams(*context.NBA)
-
 		if err != nil {
-			utils.HandleError("Error retrieving teams", err, c)
+			utils.HandleError(c, err, "Error retrieving teams")
 			return
 		}
 
-		utils.HandleResponse(teams, c)
+		utils.HandleResponse(c, teams)
 	}
 }

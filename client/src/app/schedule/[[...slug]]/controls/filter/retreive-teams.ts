@@ -3,7 +3,7 @@ import { NBAAPITeam } from "@/clients/nba/types";
 
 export async function retreiveTeams() {
 	const response = await fetchNBAAPI<NBAAPITeam>("/teams", {
-		enableCache: true,
+		cache: 60 * 60 * 24,
 	});
 
 	if (response.data === null) {

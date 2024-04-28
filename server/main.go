@@ -1,21 +1,62 @@
 package main
 
 import (
+	"context"
+	"os"
+
+	"github.com/aws/aws-lambda-go/events"
+	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/awslabs/aws-lambda-go-api-proxy/gin"
+	"github.com/gin-contrib/requestid"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
 
-func main() {
-	godotenv.Load()
+var ginEngine *gin.Engine
+var ginLambda *ginadapter.GinLambda
 
-	context := BuildContext()
+func init() {
+	godotenv.Load()
 	gin.SetMode(gin.ReleaseMode)
 
-	router := gin.New()
-	router.Use(gin.Logger())
-	router.Use(gin.Recovery())
+	server := createServer()
 
-	BuildRoutes(router, context)
+	if os.Getenv("AWS_LAMBDA_FUNCTION_NAME") != "" {
+		ginLambda = ginadapter.New(server)
+	} else {
+		ginEngine = server
+	}
+}
 
-	router.Run()
+// Handler is the entry point for Lambda requests
+func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+	return ginLambda.ProxyWithContext(ctx, req)
+}
+
+func main() {
+	if os.Getenv("AWS_LAMBDA_FUNCTION_NAME") != "" {
+		lambda.Start(Handler)
+	} else {
+		startHTTPServer(ginEngine)
+	}
+}
+
+func createServer() *gin.Engine {
+	context := BuildContext()
+
+	g := gin.New()
+	g.Use(gin.Logger())
+	g.Use(gin.Recovery())
+	g.Use(requestid.New())
+
+	BuildRoutes(g, context)
+
+	return g
+}
+
+func startHTTPServer(g *gin.Engine) {
+	err := g.Run(":8080")
+	if err != nil {
+		panic(err)
+	}
 }

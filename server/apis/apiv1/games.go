@@ -9,7 +9,7 @@ import (
 )
 
 // GamesHandler handles the GET /games endpoint
-func GamesHandler(context *globals.Context) func(c *gin.Context) {
+func GamesHandler(context *globals.Context) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		dateParam := c.Query("date")
 		teamsParam := c.Query("teams")
@@ -17,49 +17,34 @@ func GamesHandler(context *globals.Context) func(c *gin.Context) {
 
 		date, err := utils.ParseDate(dateParam)
 		if err != nil {
-			utils.HandleValidationError("date", dateParam, err.Error(), c)
+			utils.HandleValidationError(c, "date", dateParam, err.Error())
 			return
 		}
 
 		teamsFilter, err := utils.ParseTeamsFilter(teamsParam)
 		if err != nil {
-			utils.HandleValidationError("teams", teamsParam, err.Error(), c)
+			utils.HandleValidationError(c, "teams", teamsParam, err.Error())
 			return
 		}
 
 		statusFilter, err := utils.ParseStatusFilter(statusParam)
 		if err != nil {
-			utils.HandleValidationError("status", statusParam, err.Error(), c)
+			utils.HandleValidationError(c, "status", statusParam, err.Error())
 			return
 		}
 
-		games, err := service.RetreiveGames(*context.NBA, date, teamsFilter, statusFilter)
+		options := service.RetreiveGamesOptions{
+			Date:   date,
+			Teams:  teamsFilter,
+			Status: statusFilter,
+		}
+
+		games, err := service.RetreiveGames(*context.NBA, options)
 		if err != nil {
-			utils.HandleError("Error retrieving games", err, c)
+			utils.HandleError(c, err, "Error retrieving games")
 			return
 		}
 
-		utils.HandleResponse(games, c)
-	}
-}
-
-// GameHandler handles the GET /games/:id endpoint
-func GameHandler(context *globals.Context) func(c *gin.Context) {
-	return func(c *gin.Context) {
-		idParam := c.Param("id")
-
-		id, err := utils.ParseID(idParam)
-		if err != nil {
-			utils.HandleValidationError("id", idParam, err.Error(), c)
-			return
-		}
-
-		game, err := service.RetreiveGame(*context.NBA, id)
-		if err != nil {
-			utils.HandleError("Error retrieving game", err, c)
-			return
-		}
-
-		utils.HandleResponse(game, c)
+		utils.HandleResponse(c, games)
 	}
 }

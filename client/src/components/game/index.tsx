@@ -7,15 +7,9 @@ import { NBAAPIGame, NBAAPIGameTeam } from "@/clients/nba/types";
 
 import { gameStatusSwitch, splitTeamName } from "./utilities";
 
-export function Game({ game }: Readonly<GameProps>) {
-	return (
-		<Link
-			href={game ? `/games/${game.gameID}` : ""}
-			className={cx(
-				"btn bg-base-200 hover:bg-base-300 rounded-box border-base-300 group/game relative grid h-auto min-h-0 w-full grid-cols-[1fr,4rem,1fr] grid-rows-1 items-center justify-items-center gap-4 overflow-hidden border p-4 transition-all duration-300 sm:p-6",
-				game === null && "skeleton dark:!bg-neutral bg-base-200 cursor-not-allowed text-transparent",
-			)}
-		>
+export function Game({ game, noLink = false, className }: Readonly<GameProps>) {
+	const content = (
+		<Fragment>
 			<GameBackdrop game={game} />
 			<GameTeam gameTeam={game?.home ?? null} />
 			<GameVs />
@@ -23,8 +17,24 @@ export function Game({ game }: Readonly<GameProps>) {
 			<GameTeamScore gameTeam={game?.home ?? null} />
 			<GameIcon game={game} />
 			<GameTeamScore gameTeam={game?.away ?? null} />
-		</Link>
+		</Fragment>
 	);
+
+	const classNameValue = cx(
+		"group/game relative grid h-auto min-h-0 w-full grid-cols-[1fr,4rem,1fr] grid-rows-1 items-center justify-items-center gap-4 overflow-hidden",
+		game === null && "skeleton dark:!bg-neutral bg-base-200 cursor-not-allowed text-transparent",
+		className,
+	);
+
+	if (!noLink && game !== null) {
+		return (
+			<Link className={classNameValue} href={`/games/${game.gameID}`}>
+				{content}
+			</Link>
+		);
+	}
+
+	return <div className={classNameValue}>{content}</div>;
 }
 
 function GameBackdrop({ game }: GameProps) {
@@ -95,7 +105,6 @@ function GameTeamScore({ gameTeam }: Readonly<GameComponentProps>) {
 					<p className="text-center text-2xl group-data-[scores=false]:hidden">{points}</p>
 				</Fragment>
 			)}
-			<p>{}</p>
 		</div>
 	);
 }
@@ -106,4 +115,6 @@ interface GameComponentProps {
 
 export interface GameProps {
 	game: NBAAPIGame | null;
+	noLink?: boolean;
+	className?: string | undefined;
 }

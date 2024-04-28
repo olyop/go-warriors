@@ -2,44 +2,22 @@ package nba
 
 // Response is the response from the NBA API
 type Response[T interface{}] struct {
-	// Message corresponds to the JSON schema field "message".
-	Message string `json:"message,omitempty"`
-
-	// Errors corresponds to the JSON schema field "errors".
-	Errors []interface{} `json:"errors,omitempty"`
-
-	// Response corresponds to the JSON schema field "response".
-	Response []T `json:"response,omitempty"`
+	Message  string        `json:"message,omitempty"`
+	Errors   []interface{} `json:"errors,omitempty"`
+	Response []T           `json:"response,omitempty"`
 }
 
 // Team is a game from the NBA API
 type Team struct {
-	// ID corresponds to the JSON schema field "id".
-	ID float64 `json:"id,omitempty"`
-
-	// Name corresponds to the JSON schema field "name".
-	Name string `json:"name,omitempty"`
-
-	// Nickname corresponds to the JSON schema field "nickname".
-	Nickname string `json:"nickname,omitempty"`
-
-	// Code corresponds to the JSON schema field "code".
-	Code string `json:"code,omitempty"`
-
-	// City corresponds to the JSON schema field "city".
-	City string `json:"city,omitempty"`
-
-	// Logo corresponds to the JSON schema field "logo".
-	Logo string `json:"logo,omitempty"`
-
-	// AllStar corresponds to the JSON schema field "allStar".
-	AllStar bool `json:"allStar,omitempty"`
-
-	// NBAFranchise corresponds to the JSON schema field "nbaFranchise".
-	NBAFranchise bool `json:"nbaFranchise,omitempty"`
-
-	// Leagues corresponds to the JSON schema field "leagues".
-	Leagues Leagues `json:"leagues,omitempty"`
+	ID           float64 `json:"id,omitempty"`
+	Name         string  `json:"name,omitempty"`
+	Nickname     string  `json:"nickname,omitempty"`
+	Code         string  `json:"code,omitempty"`
+	City         string  `json:"city,omitempty"`
+	Logo         string  `json:"logo,omitempty"`
+	AllStar      bool    `json:"allStar,omitempty"`
+	NBAFranchise bool    `json:"nbaFranchise,omitempty"`
+	Leagues      Leagues `json:"leagues,omitempty"`
 }
 
 // Leagues is a league from the NBA API
@@ -55,142 +33,219 @@ type LeaguesStandard struct {
 
 // Game is a game from the NBA API
 type Game struct {
-	// Arena corresponds to the JSON schema field "arena".
-	Arena GameArena `json:"arena,omitempty"`
-
-	// Date corresponds to the JSON schema field "date".
-	Date GameDate `json:"date,omitempty"`
-
-	// ID corresponds to the JSON schema field "id".
-	ID float64 `json:"id,omitempty"`
-
-	// League corresponds to the JSON schema field "league".
-	League string `json:"league,omitempty"`
-
-	// Periods corresponds to the JSON schema field "periods".
+	Arena   GameArena   `json:"arena,omitempty"`
+	Date    GameDate    `json:"date,omitempty"`
+	ID      float64     `json:"id,omitempty"`
+	League  string      `json:"league,omitempty"`
 	Periods GamePeriods `json:"periods,omitempty"`
-
-	// Scores corresponds to the JSON schema field "scores".
-	Scores GameScores `json:"scores,omitempty"`
-
-	// Season corresponds to the JSON schema field "season".
-	Season float64 `json:"season,omitempty"`
-
-	// Stage corresponds to the JSON schema field "stage".
-	Stage float64 `json:"stage,omitempty"`
-
-	// Status corresponds to the JSON schema field "status".
-	Status GameStatus `json:"status,omitempty"`
-
-	// Teams corresponds to the JSON schema field "teams".
-	Teams GameTeams `json:"teams,omitempty"`
+	Scores  GameScores  `json:"scores,omitempty"`
+	Season  float64     `json:"season,omitempty"`
+	Stage   float64     `json:"stage,omitempty"`
+	Status  GameStatus  `json:"status,omitempty"`
+	Teams   GameTeams   `json:"teams,omitempty"`
 }
 
 // GameArena is the arena for a game from the NBA API
 type GameArena struct {
-	// City corresponds to the JSON schema field "city".
-	City string `json:"city,omitempty"`
-
-	// Name corresponds to the JSON schema field "name".
-	Name string `json:"name,omitempty"`
-
-	// State corresponds to the JSON schema field "state".
+	City  string `json:"city,omitempty"`
+	Name  string `json:"name,omitempty"`
 	State string `json:"state,omitempty"`
 }
 
 // GameDate is the date for a game from the NBA API
 type GameDate struct {
-
-	// Start corresponds to the JSON schema field "start".
 	Start string `json:"start,omitempty"`
 }
 
 // GamePeriods is the periods for a game from the NBA API
 type GamePeriods struct {
-	// Current corresponds to the JSON schema field "current".
-	Current float64 `json:"current,omitempty"`
-
-	// EndOfPeriod corresponds to the JSON schema field "endOfPeriod".
-	EndOfPeriod bool `json:"endOfPeriod,omitempty"`
-
-	// Total corresponds to the JSON schema field "total".
-	Total float64 `json:"total,omitempty"`
+	Current     float64 `json:"current,omitempty"`
+	EndOfPeriod bool    `json:"endOfPeriod,omitempty"`
+	Total       float64 `json:"total,omitempty"`
 }
 
 // GameScores is the scores for a game from the NBA API
 type GameScores struct {
-	// Home corresponds to the JSON schema field "home".
-	Home GameScore `json:"home,omitempty"`
-
-	// Visitors corresponds to the JSON schema field "visitors".
+	Home     GameScore `json:"home,omitempty"`
 	Visitors GameScore `json:"visitors,omitempty"`
 }
 
 // GameScore is the score for a game from the NBA API
 type GameScore struct {
-	// Linescore corresponds to the JSON schema field "linescore".
-	Linescore []string `json:"linescore,omitempty"`
-
-	// Loss corresponds to the JSON schema field "loss".
-	Loss float64 `json:"loss,omitempty"`
-
-	// Points corresponds to the JSON schema field "points".
-	Points float64 `json:"points,omitempty"`
-
-	// Series corresponds to the JSON schema field "series".
-	Series GameScoreSeries `json:"series,omitempty"`
-
-	// Win corresponds to the JSON schema field "win".
-	Win float64 `json:"win,omitempty"`
+	Linescore []string        `json:"linescore,omitempty"`
+	Loss      float64         `json:"loss,omitempty"`
+	Points    float64         `json:"points,omitempty"`
+	Series    GameScoreSeries `json:"series,omitempty"`
+	Win       float64         `json:"win,omitempty"`
 }
 
 // GameScoreSeries is the series for a game score from the NBA API
 type GameScoreSeries struct {
-	// Loss corresponds to the JSON schema field "loss".
 	Loss float64 `json:"loss,omitempty"`
-
-	// Win corresponds to the JSON schema field "win".
-	Win float64 `json:"win,omitempty"`
+	Win  float64 `json:"win,omitempty"`
 }
 
 // GameStatus is the status for a game from the NBA API
 type GameStatus struct {
-	// Clock corresponds to the JSON schema field "clock".
-	Clock string `json:"clock,omitempty"`
-
-	// Halftime corresponds to the JSON schema field "halftime".
-	Halftime bool `json:"halftime,omitempty"`
-
-	// Long corresponds to the JSON schema field "long".
-	Long string `json:"long,omitempty"`
-
-	// Short corresponds to the JSON schema field "short".
-	Short float64 `json:"short,omitempty"`
+	Clock    string  `json:"clock,omitempty"`
+	Halftime bool    `json:"halftime,omitempty"`
+	Long     string  `json:"long,omitempty"`
+	Short    float64 `json:"short,omitempty"`
 }
 
 // GameTeams is the teams for a game from the NBA API
 type GameTeams struct {
-	// Home corresponds to the JSON schema field "home".
-	Home GameTeam `json:"home,omitempty"`
-
-	// Visitors corresponds to the JSON schema field "visitors".
+	Home     GameTeam `json:"home,omitempty"`
 	Visitors GameTeam `json:"visitors,omitempty"`
 }
 
 // GameTeam is the team for a game from the NBA API
 type GameTeam struct {
-	// ID corresponds to the JSON schema field "id".
+	ID       float64 `json:"id,omitempty"`
+	Code     string  `json:"code,omitempty"`
+	Logo     string  `json:"logo,omitempty"`
+	Name     string  `json:"name,omitempty"`
+	Nickname string  `json:"nickname,omitempty"`
+}
+
+// GameTeamStatistics is the statistics for a team in a game from the NBA API
+type GameTeamStatistics struct {
+	Team       GameTeam                  `json:"team"`
+	Statistics []GameTeamStatisticsValue `json:"statistics"`
+}
+
+// GameTeamStatisticsValue is the statistics value for a team in a game from the NBA API
+type GameTeamStatisticsValue struct {
+	FastBreakPoints    float64 `json:"fastBreakPoints,omitempty"`
+	PointsInPaint      float64 `json:"pointsInPaint,omitempty"`
+	BiggestLead        float64 `json:"biggestLead,omitempty"`
+	SecondChancePoints float64 `json:"secondChancePoints,omitempty"`
+	PointsOffTurnovers float64 `json:"pointsOffTurnovers,omitempty"`
+	LongestRun         float64 `json:"longestRun,omitempty"`
+	Points             float64 `json:"points,omitempty"`
+	FGM                float64 `json:"fgm,omitempty"`
+	FGA                float64 `json:"fga,omitempty"`
+	FGP                string  `json:"fgp,omitempty"`
+	FTM                float64 `json:"ftm,omitempty"`
+	FTA                float64 `json:"fta,omitempty"`
+	FTP                string  `json:"ftp,omitempty"`
+	TPM                float64 `json:"tpm,omitempty"`
+	TPA                float64 `json:"tpa,omitempty"`
+	TPP                string  `json:"tpp,omitempty"`
+	OffReb             float64 `json:"offReb,omitempty"`
+	DefReb             float64 `json:"defReb,omitempty"`
+	TotReb             float64 `json:"totReb,omitempty"`
+	Assists            float64 `json:"assists,omitempty"`
+	PFouls             float64 `json:"pFouls,omitempty"`
+	Steals             float64 `json:"steals,omitempty"`
+	Turnovers          float64 `json:"turnovers,omitempty"`
+	Blocks             float64 `json:"blocks,omitempty"`
+	PlusMinus          string  `json:"plusMinus,omitempty"`
+	Min                string  `json:"min,omitempty"`
+}
+
+// PlayerGameStatistics is the statistics for a player in a game from the NBA API
+type PlayerGameStatistics struct {
+	Player     PlayerGameStatisticsPlayer  `json:"player"`
+	Team       PlayerGameStatisticsTeam    `json:"team"`
+	Game       PlayerGameStatisticsGame    `json:"game"`
+	Statistics []PlayerGameStatisticsValue `json:"statistics"`
+	Comment    string                      `json:"comment"`
+}
+
+// PlayerGameStatisticsPlayer is the player for a player in a game from the NBA API
+type PlayerGameStatisticsPlayer struct {
+	ID        float64 `json:"id,omitempty"`
+	FirstName string  `json:"firstname,omitempty"`
+	LastName  string  `json:"lastname,omitempty"`
+}
+
+// PlayerGameStatisticsTeam is the team for a player in a game from the NBA API
+type PlayerGameStatisticsTeam struct {
+	ID       float64 `json:"id,omitempty"`
+	Name     string  `json:"name,omitempty"`
+	Nickname string  `json:"nickname,omitempty"`
+	Code     string  `json:"code,omitempty"`
+	Logo     string  `json:"logo,omitempty"`
+}
+
+// PlayerGameStatisticsGame is the game for a player in a game from the NBA API
+type PlayerGameStatisticsGame struct {
 	ID float64 `json:"id,omitempty"`
+}
 
-	// Code corresponds to the JSON schema field "code".
-	Code string `json:"code,omitempty"`
+// PlayerGameStatisticsValue is the statistics value for a player in a game from the NBA API
+type PlayerGameStatisticsValue struct {
+	Points    float64 `json:"points,omitempty"`
+	Pos       string  `json:"pos,omitempty"`
+	Min       string  `json:"min,omitempty"`
+	FGM       float64 `json:"fgm,omitempty"`
+	FGA       float64 `json:"fga,omitempty"`
+	FGP       string  `json:"fgp,omitempty"`
+	FTM       float64 `json:"ftm,omitempty"`
+	FTA       float64 `json:"fta,omitempty"`
+	FTP       string  `json:"ftp,omitempty"`
+	TPM       float64 `json:"tpm,omitempty"`
+	TPA       float64 `json:"tpa,omitempty"`
+	TPP       string  `json:"tpp,omitempty"`
+	OffReb    float64 `json:"offReb,omitempty"`
+	DefReb    float64 `json:"defReb,omitempty"`
+	TotReb    float64 `json:"totReb,omitempty"`
+	Assists   float64 `json:"assists,omitempty"`
+	PFouls    float64 `json:"pFouls,omitempty"`
+	Steals    float64 `json:"steals,omitempty"`
+	Turnovers float64 `json:"turnovers,omitempty"`
+	Blocks    float64 `json:"blocks,omitempty"`
+	PlusMinus string  `json:"plusMinus,omitempty"`
+}
 
-	// Logo corresponds to the JSON schema field "logo".
-	Logo string `json:"logo,omitempty"`
+// Player is a player from the NBA API
+type Player struct {
+	ID          float64       `json:"id,omitempty"`
+	FirstName   string        `json:"firstname,omitempty"`
+	LastName    string        `json:"lastname,omitempty"`
+	Birth       PlayerBirth   `json:"birth,omitempty"`
+	NBA         PlayerNBA     `json:"nba,omitempty"`
+	Height      PlayerHeight  `json:"height,omitempty"`
+	Weight      PlayerWeight  `json:"weight,omitempty"`
+	College     string        `json:"college,omitempty"`
+	Affiliation string        `json:"affiliation,omitempty"`
+	Leagues     PlayerLeagues `json:"leagues,omitempty"`
+}
 
-	// Name corresponds to the JSON schema field "name".
-	Name string `json:"name,omitempty"`
+// PlayerBirth is the birth for a player from the NBA API
+type PlayerBirth struct {
+	Date    string `json:"date,omitempty"`
+	Country string `json:"country,omitempty"`
+}
 
-	// Nickname corresponds to the JSON schema field "nickname".
-	Nickname string `json:"nickname,omitempty"`
+// PlayerNBA is the NBA for a player from the NBA API
+type PlayerNBA struct {
+	Start float64 `json:"start,omitempty"`
+	Pro   float64 `json:"pro,omitempty"`
+}
+
+// PlayerHeight is the height for a player from the NBA API
+type PlayerHeight struct {
+	Feets  string `json:"feets,omitempty"`
+	Inches string `json:"inches,omitempty"`
+	Meters string `json:"meters,omitempty"`
+}
+
+// PlayerWeight is the weight for a player from the NBA API
+type PlayerWeight struct {
+	Pounds    string `json:"pounds,omitempty"`
+	Kilograms string `json:"kilograms,omitempty"`
+}
+
+// PlayerLeagues is the leagues for a player from the NBA API
+type PlayerLeagues struct {
+	Standard PlayerLeaguesStandard `json:"standard"`
+}
+
+// PlayerLeaguesStandard is the standard leagues for a player from the NBA API
+type PlayerLeaguesStandard struct {
+	Jersey float64 `json:"jersey,omitempty"`
+	Active bool    `json:"active,omitempty"`
+	Pos    string  `json:"pos,omitempty"`
 }

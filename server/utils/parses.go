@@ -115,3 +115,14 @@ func ParseStatusFilter(status string) (string, error) {
 
 	return status, nil
 }
+
+// ParseFloat parses a float string to a float64
+func ParseFloat(value string) float64 {
+	f, err := strconv.ParseFloat(value, 64)
+
+	if err != nil {
+		return 0
+	}
+
+	return f
+}

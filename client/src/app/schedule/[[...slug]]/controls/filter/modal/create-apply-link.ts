@@ -7,8 +7,6 @@ import { createDayLink } from "../../utilities";
 export function createApplyLink(date: Date, searchParams: ReadonlyURLSearchParams, filter: GamesFilter) {
 	const searchParamsCopy = new URLSearchParams(searchParams);
 
-	console.log(filter);
-
 	if (filter.status === null) {
 		searchParamsCopy.delete("filter-status");
 	} else {
