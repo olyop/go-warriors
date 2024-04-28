@@ -12,6 +12,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          path: server
+          sparse-checkout: "server"
+          sparse-checkout-cone-mode: false
 
       - name: Set up Go
         uses: actions/setup-go@v4
@@ -26,7 +30,7 @@ jobs:
       - name: Build
         working-directory: ./server
         run: |
-          GOOS=linux GOARCH=arm64 go build -tags lambda.norpc -o bootstrap main.go
+          GOOS=linux GOARCH=arm64 go build -tags lambda.norpc -o bootstrap .
           zip deployment.zip bootstrap
 
       - name: Configure AWS credentials
