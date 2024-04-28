@@ -14,6 +14,8 @@ detroit
 DREB
 feets
 Feets
+fileb
+GOARCH
 godotenv
 golint
 gonic
@@ -22,12 +24,14 @@ houston
 indiana
 joho
 Knicks
+linux
 miami
 milwaukee
 minnesota
 nbaapisportsio
 nextjs
 nolint
+norpc
 oklahoma
 OREB
 orlando
