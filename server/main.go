@@ -1,45 +1,16 @@
 package main
 
 import (
-	"context"
 	"os"
 
-	"github.com/aws/aws-lambda-go/events"
-	"github.com/aws/aws-lambda-go/lambda"
-	"github.com/awslabs/aws-lambda-go-api-proxy/gin"
+	"github.com/akrylysov/algnhsa"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
 
-var ginEngine *gin.Engine
-var ginLambda *ginadapter.GinLambda
-
-func init() {
+func main() {
 	godotenv.Load()
 	gin.SetMode(gin.ReleaseMode)
-
-	server := createServer()
-
-	if os.Getenv("AWS_LAMBDA_FUNCTION_NAME") != "" {
-		ginLambda = ginadapter.New(server)
-	} else {
-		ginEngine = server
-	}
-}
-
-func main() {
-	if os.Getenv("AWS_LAMBDA_FUNCTION_NAME") != "" {
-		lambda.Start(handler)
-	} else {
-		startHTTPServer(ginEngine)
-	}
-}
-
-func handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-	return ginLambda.ProxyWithContext(ctx, req)
-}
-
-func createServer() *gin.Engine {
 	context := BuildContext()
 
 	g := gin.New()
@@ -48,12 +19,9 @@ func createServer() *gin.Engine {
 
 	BuildRoutes(g, context)
 
-	return g
-}
-
-func startHTTPServer(g *gin.Engine) {
-	err := g.Run(":8080")
-	if err != nil {
-		panic(err)
+	if os.Getenv("AWS_LAMBDA_FUNCTION_NAME") != "" {
+		algnhsa.ListenAndServe(g, nil)
+	} else {
+		g.Run()
 	}
 }
