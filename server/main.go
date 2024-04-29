@@ -27,17 +27,16 @@ func init() {
 	}
 }
 
-// Handler is the entry point for Lambda requests
-func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-	return ginLambda.ProxyWithContext(ctx, req)
-}
-
 func main() {
 	if os.Getenv("AWS_LAMBDA_FUNCTION_NAME") != "" {
-		lambda.Start(Handler)
+		lambda.Start(handler)
 	} else {
 		startHTTPServer(ginEngine)
 	}
+}
+
+func handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+	return ginLambda.ProxyWithContext(ctx, req)
 }
 
 func createServer() *gin.Engine {

@@ -10,7 +10,7 @@ import (
 
 // BuildRoutes constructs the routes for the application
 func BuildRoutes(router *gin.Engine, context *globals.Context) {
-	router.GET("/heartbeat", apiv1.HeartbeatHandler)
+	router.GET("/", HeartbeatHandler)
 
 	apiRouter := router.Group("/api/v1", middleware.Authorization())
 	{
