@@ -5,14 +5,11 @@ import { formatDateToISO } from "@/shared/utilities/date";
 
 import { NBAAPIResponse } from "./types";
 
-const USERNAME = "nextjs";
-const PASSWORD = process.env.NEXTJS_PASSWORD;
-const AUTHORIZATION = btoa(`${USERNAME}:${PASSWORD}`);
+const BASE_URL = process.env.API_BASE_URL;
+const AUTHORIZATION = btoa(`nextjs:${process.env.NEXTJS_PASSWORD}`);
 
 export const fetchNBAAPI = async <T>(path: string, options?: FetchNBAAPIOptions) => {
-	const hostname = "localhost";
-
-	const url = new URL(`/api/v1${path}`, `http://${hostname}:8080`);
+	const url = new URL(`/api/v1${path}`, BASE_URL);
 
 	if (options?.params) {
 		for (const [key, objectValue] of Object.entries(options.params)) {

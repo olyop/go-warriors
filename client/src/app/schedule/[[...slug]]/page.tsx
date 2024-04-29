@@ -2,6 +2,7 @@ import { Games } from "@/components/games";
 import { ServerSideComponentProp } from "@/shared/types";
 import { createGamesFilter } from "@/shared/utilities/games-filter";
 
+import ScheduleRedirect from "./redirect";
 import { retrieveGames } from "./retrieve-games";
 import { convertSlugToDate } from "./utilities";
 
@@ -16,5 +17,9 @@ export default async function Schedule(props: ServerSideComponentProp<{ slug: st
 
 	const games = await retrieveGames(date, filter);
 
-	return <Games games={games} />;
+	return (
+		<ScheduleRedirect slug={params.slug ?? null} date={date}>
+			<Games games={games} />
+		</ScheduleRedirect>
+	);
 }
