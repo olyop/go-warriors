@@ -14,7 +14,7 @@ func BuildContext() *globals.Context {
 	apiKey, ok := os.LookupEnv("RAPIDAPI_API_KEY")
 
 	if !ok {
-		log.Fatal("RAPIDAPI_API_KEY was not found in environment")
+		log.Fatal("RAPIDAPI_API_KEY not found in environment")
 	}
 
 	context.NBA = nba.New(apiKey)
