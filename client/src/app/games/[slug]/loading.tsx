@@ -1,3 +1,5 @@
+import { GameView } from "./game-view";
+
 export default function Loading() {
-	return <p>Loading...</p>;
+	return <GameView />;
 }

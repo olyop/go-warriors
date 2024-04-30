@@ -1,7 +1,9 @@
 import cx from "classnames";
-import { ButtonHTMLAttributes, DetailedHTMLProps, Fragment, ReactNode } from "react";
+import { ButtonHTMLAttributes, DetailedHTMLProps, Fragment, ReactHTML, ReactNode, createElement } from "react";
 
 export function Button({
+	type = "button",
+	htmlFor,
 	leftIcon,
 	text,
 	rightIcon,
@@ -27,24 +29,28 @@ export function Button({
 		<Fragment>{rightIcon && rightIcon(cx("size-6", spanClassName, iconClassName, rightIconClassName))}</Fragment>
 	);
 
-	return (
-		<button
-			{...props}
-			type="button"
-			className={cx(
-				"btn motion-reduce:no-animation max-sm:!text-xs",
-				text === undefined && (leftIcon || rightIcon) && "btn-circle",
-				hideTextSm && "btn-circle",
-				className,
-			)}
-		>
-			{groupLeft ? <div className={groupClassName}>{leftValue}</div> : leftValue}
-			{rightValue}
-		</button>
-	);
+	return createElement(type, {
+		type: "button",
+		htmlFor,
+		...props,
+		className: cx(
+			"btn motion-reduce:no-animation max-sm:!text-xs",
+			text === undefined && (leftIcon || rightIcon) && "btn-circle",
+			hideTextSm && "btn-circle",
+			className,
+		),
+		children: (
+			<Fragment>
+				{groupLeft ? <div className={groupClassName}>{leftValue}</div> : leftValue}
+				{rightValue}
+			</Fragment>
+		),
+	});
 }
 
 export interface ButtonProps extends ButtonInternalProps {
+	type?: keyof ReactHTML;
+	htmlFor?: string;
 	leftIcon?: (iconClassName: string) => ReactNode;
 	text?: ReactNode;
 	rightIcon?: (iconClassName: string) => ReactNode;
@@ -61,5 +67,5 @@ export interface ButtonProps extends ButtonInternalProps {
 
 type ButtonInternalProps = Omit<
 	DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>,
-	"children" | "className"
+	"children" | "className" | "type"
 >;

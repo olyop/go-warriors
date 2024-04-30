@@ -32,7 +32,8 @@ function ScheduleControlsNavigatorWeekDay({ date, searchParams, currentDate }: S
 			href={createDayLink(date, searchParams)}
 			className={cx(
 				"sm:border-base-300 flex flex-col items-center justify-center gap-1 truncate px-0 py-3.5 font-mono leading-none sm:border-b-4 sm:px-2 sm:pb-2 sm:pt-2",
-				(isDateToday(date) || isSameDay(date, currentDate)) && "bg-base-200 hover:bg-base-200 focus:bg-base-200",
+				isDateToday(date) && "bg-base-200 hover:bg-base-200 focus:bg-base-200",
+				isSameDay(date, currentDate) && "bg-base-300 hover:bg-base-300 focus:bg-base-300",
 			)}
 		>
 			<span className="text sm:text-base">{dateDayFormatter.format(date)}</span>

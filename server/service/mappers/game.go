@@ -13,12 +13,12 @@ func MapGameStatistics(game schema.GoWarriorsAPIGame, teamStatistics []response.
 
 	homeTeamStatistics, found := findTeamStatistics(teamStatistics, game.Home.Team.TeamID)
 	if found {
-		game.Home.Statistics[0] = homeTeamStatistics
+		game.Home.Statistics = append(game.Home.Statistics, homeTeamStatistics)
 	}
 
 	awayTeamStatistics, found := findTeamStatistics(teamStatistics, game.Away.Team.TeamID)
 	if found {
-		game.Away.Statistics[0] = awayTeamStatistics
+		game.Away.Statistics = append(game.Away.Statistics, awayTeamStatistics)
 	}
 
 	game.Home.Players = findTeamPlayerStatistics(playersStatistics, game.Home.Team.TeamID)

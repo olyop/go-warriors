@@ -38,7 +38,7 @@ export function Game({ game, noLink = false, className }: Readonly<GameProps>) {
 }
 
 function GameBackdrop({ game }: GameProps) {
-	if (game === null || game.home.score === undefined || game.away.score === undefined) {
+	if (game === null) {
 		return null;
 	}
 
@@ -91,7 +91,7 @@ function GameIcon({ game }: GameProps) {
 }
 
 function GameTeamScore({ gameTeam }: Readonly<GameComponentProps>) {
-	const points = gameTeam?.score?.points;
+	const points = gameTeam?.score.points;
 
 	return (
 		<div className="z-20 flex h-8 items-center justify-center">
