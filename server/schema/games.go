@@ -18,10 +18,10 @@ type GoWarriorsAPIGameStatus struct {
 
 // GoWarriorsAPIGameTeam represents a team in a game in the GoWarriorsAPI
 type GoWarriorsAPIGameTeam struct {
-	Team       GoWarriorsAPITeam           `json:"team"`
-	Score      GoWarriorsAPIScore          `json:"score"`
-	Players    []GoWarriorsAPIGamePlayer   `json:"players,omitempty"`
-	Statistics GoWarriorsAPITeamStatistics `json:"statistics,omitempty"`
+	Team       GoWarriorsAPITeam             `json:"team"`
+	Score      GoWarriorsAPIScore            `json:"score"`
+	Players    []GoWarriorsAPIGamePlayer     `json:"players"`
+	Statistics []GoWarriorsAPITeamStatistics `json:"statistics"`
 }
 
 // GoWarriorsAPIScore represents a team's score in a game in the GoWarriorsAPI

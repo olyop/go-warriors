@@ -29,3 +29,5 @@ func GameHandler(context *globals.Context) gin.HandlerFunc {
 		utils.HandleResponse(c, []schema.GoWarriorsAPIGame{game})
 	}
 }
+
+const port = 3000

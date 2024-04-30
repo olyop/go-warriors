@@ -8,15 +8,26 @@ import (
 
 // MapGameStatistics maps the NBA API game team statistics response to a GoWarriors API game team response
 func MapGameStatistics(game schema.GoWarriorsAPIGame, teamStatistics []response.NBAGamesStatisticsResponse, playersStatistics []response.NBAPlayerStatisticsResponse) schema.GoWarriorsAPIGame {
-	game.Home.Statistics = findTeamStatistics(teamStatistics, game.Home.Team.TeamID)
-	game.Away.Statistics = findTeamStatistics(teamStatistics, game.Away.Team.TeamID)
+	game.Home.Statistics = make([]schema.GoWarriorsAPITeamStatistics, 0)
+	game.Away.Statistics = make([]schema.GoWarriorsAPITeamStatistics, 0)
+
+	homeTeamStatistics, found := findTeamStatistics(teamStatistics, game.Home.Team.TeamID)
+	if found {
+		game.Home.Statistics[0] = homeTeamStatistics
+	}
+
+	awayTeamStatistics, found := findTeamStatistics(teamStatistics, game.Away.Team.TeamID)
+	if found {
+		game.Away.Statistics[0] = awayTeamStatistics
+	}
+
 	game.Home.Players = findTeamPlayerStatistics(playersStatistics, game.Home.Team.TeamID)
 	game.Away.Players = findTeamPlayerStatistics(playersStatistics, game.Away.Team.TeamID)
 
 	return game
 }
 
-func findTeamStatistics(teamStatistics []response.NBAGamesStatisticsResponse, teamID int) (result schema.GoWarriorsAPITeamStatistics) {
+func findTeamStatistics(teamStatistics []response.NBAGamesStatisticsResponse, teamID int) (result schema.GoWarriorsAPITeamStatistics, found bool) {
 	for _, team := range teamStatistics {
 		if int(team.Team.ID) != teamID {
 			continue
@@ -26,10 +37,11 @@ func findTeamStatistics(teamStatistics []response.NBAGamesStatisticsResponse, te
 			continue
 		}
 
+		found = true
 		result = mapTeamStatistics(team.Statistics[0])
 	}
 
-	return result
+	return result, found
 }
 
 func mapTeamStatistics(value response.NBAGamesStatisticsStatisticsResponse) schema.GoWarriorsAPITeamStatistics {

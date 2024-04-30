@@ -26,7 +26,7 @@ export interface NBAAPIGameTeam {
 	team: NBAAPITeam;
 	score: NBAAPIScore;
 	players: NBAAPIGamePlayer[];
-	statistics: NBAGamesStatisticsResponse;
+	statistics: NBAGamesStatisticsResponse[];
 }
 
 export interface NBAAPIScore {

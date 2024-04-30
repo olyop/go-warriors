@@ -48,45 +48,45 @@ export default async function GamePage({ params: { slug } }: ServerSideComponent
 							<tbody>
 								<tr className="border-base-300 border-b-2">
 									<td>{game.home.team.name}</td>
-									<td>{game.home.statistics.points}</td>
-									<td>{game.home.statistics.fieldGoalsMade}</td>
-									<td>{game.home.statistics.fieldGoalsAttempted}</td>
-									<td>{game.home.statistics.fieldGoalPercentage}</td>
-									<td>{game.home.statistics.freeThrowsMade}</td>
-									<td>{game.home.statistics.freeThrowsAttempted}</td>
-									<td>{game.home.statistics.freeThrowPercentage}</td>
-									<td>{game.home.statistics.threePointersMade}</td>
-									<td>{game.home.statistics.threePointersAttempted}</td>
-									<td>{game.home.statistics.threePointPercentage}</td>
-									<td>{game.home.statistics.offensiveRebounds}</td>
-									<td>{game.home.statistics.defensiveRebounds}</td>
-									<td>{game.home.statistics.totalRebounds}</td>
-									<td>{game.home.statistics.assists}</td>
-									<td>{game.home.statistics.personalFouls}</td>
-									<td>{game.home.statistics.steals}</td>
-									<td>{game.home.statistics.turnovers}</td>
-									<td>{game.home.statistics.blocks}</td>
+									<td>{game.home.statistics[0]?.points}</td>
+									<td>{game.home.statistics[0]?.fieldGoalsMade}</td>
+									<td>{game.home.statistics[0]?.fieldGoalsAttempted}</td>
+									<td>{game.home.statistics[0]?.fieldGoalPercentage}</td>
+									<td>{game.home.statistics[0]?.freeThrowsMade}</td>
+									<td>{game.home.statistics[0]?.freeThrowsAttempted}</td>
+									<td>{game.home.statistics[0]?.freeThrowPercentage}</td>
+									<td>{game.home.statistics[0]?.threePointersMade}</td>
+									<td>{game.home.statistics[0]?.threePointersAttempted}</td>
+									<td>{game.home.statistics[0]?.threePointPercentage}</td>
+									<td>{game.home.statistics[0]?.offensiveRebounds}</td>
+									<td>{game.home.statistics[0]?.defensiveRebounds}</td>
+									<td>{game.home.statistics[0]?.totalRebounds}</td>
+									<td>{game.home.statistics[0]?.assists}</td>
+									<td>{game.home.statistics[0]?.personalFouls}</td>
+									<td>{game.home.statistics[0]?.steals}</td>
+									<td>{game.home.statistics[0]?.turnovers}</td>
+									<td>{game.home.statistics[0]?.blocks}</td>
 								</tr>
 								<tr>
 									<td>{game.away.team.name}</td>
-									<td>{game.away.statistics.points}</td>
-									<td>{game.away.statistics.fieldGoalsMade}</td>
-									<td>{game.away.statistics.fieldGoalsAttempted}</td>
-									<td>{game.away.statistics.fieldGoalPercentage}</td>
-									<td>{game.away.statistics.freeThrowsMade}</td>
-									<td>{game.away.statistics.freeThrowsAttempted}</td>
-									<td>{game.away.statistics.freeThrowPercentage}</td>
-									<td>{game.away.statistics.threePointersMade}</td>
-									<td>{game.away.statistics.threePointersAttempted}</td>
-									<td>{game.away.statistics.threePointPercentage}</td>
-									<td>{game.away.statistics.offensiveRebounds}</td>
-									<td>{game.away.statistics.defensiveRebounds}</td>
-									<td>{game.away.statistics.totalRebounds}</td>
-									<td>{game.away.statistics.assists}</td>
-									<td>{game.away.statistics.personalFouls}</td>
-									<td>{game.away.statistics.steals}</td>
-									<td>{game.away.statistics.turnovers}</td>
-									<td>{game.away.statistics.blocks}</td>
+									<td>{game.away.statistics[0]?.points}</td>
+									<td>{game.away.statistics[0]?.fieldGoalsMade}</td>
+									<td>{game.away.statistics[0]?.fieldGoalsAttempted}</td>
+									<td>{game.away.statistics[0]?.fieldGoalPercentage}</td>
+									<td>{game.away.statistics[0]?.freeThrowsMade}</td>
+									<td>{game.away.statistics[0]?.freeThrowsAttempted}</td>
+									<td>{game.away.statistics[0]?.freeThrowPercentage}</td>
+									<td>{game.away.statistics[0]?.threePointersMade}</td>
+									<td>{game.away.statistics[0]?.threePointersAttempted}</td>
+									<td>{game.away.statistics[0]?.threePointPercentage}</td>
+									<td>{game.away.statistics[0]?.offensiveRebounds}</td>
+									<td>{game.away.statistics[0]?.defensiveRebounds}</td>
+									<td>{game.away.statistics[0]?.totalRebounds}</td>
+									<td>{game.away.statistics[0]?.assists}</td>
+									<td>{game.away.statistics[0]?.personalFouls}</td>
+									<td>{game.away.statistics[0]?.steals}</td>
+									<td>{game.away.statistics[0]?.turnovers}</td>
+									<td>{game.away.statistics[0]?.blocks}</td>
 								</tr>
 							</tbody>
 						</table>

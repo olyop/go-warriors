@@ -18,6 +18,10 @@
 		"node": "21.6.2",
 		"npm": "10.4.0"
 	},
+	"engines": {
+		"node": "21.6.2",
+		"npm": "10.4.0"
+	},
 	"scripts": {
 		"dev": "next dev --turbo --experimental-https --experimental-https-key /home/op/.mkcert/localhost-key.pem --experimental-https-cert /home/op/.mkcert/localhost.pem",
 		"build": "next build",
@@ -34,6 +38,8 @@
 		"daisyui": "4.10.2"
 	},
 	"devDependencies": {
+		"@oly_op/eslint-config": "6.7.20",
+		"@oly_op/eslint-config-react": "4.3.6",
 		"@oly_op/tsconfig": "1.2.1",
 		"@types/node": "20.12.7",
 		"@types/react": "18.2.79",

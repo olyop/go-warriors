@@ -53,6 +53,17 @@ export function ScheduleControlsFilterInternal({ teams }: ScheduleControlsFilter
 		router.push(createApplyLink(getDateFromPathname(pathname), searchParams, filter));
 	}
 
+	function handleReset() {
+		const filterValue = {
+			status: null,
+			teams: null,
+		};
+
+		setFilter(filterValue);
+		closeFilterModal();
+		router.push(createApplyLink(getDateFromPathname(pathname), searchParams, filterValue));
+	}
+
 	const isFilterActive = filter.status !== null || filter.teams !== null;
 
 	return (
@@ -82,7 +93,7 @@ export function ScheduleControlsFilterInternal({ teams }: ScheduleControlsFilter
 					/>
 				}
 				icon={iconClassName => <AdjustmentsHorizontalIcon className={iconClassName} />}
-				buttons={<FilterModalButtons onApply={handleFilterApply} onReset={() => {}} onCancel={closeFilterModal} />}
+				buttons={<FilterModalButtons onApply={handleFilterApply} onReset={handleReset} onCancel={closeFilterModal} />}
 			/>
 		</Fragment>
 	);
