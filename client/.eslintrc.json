@@ -6,6 +6,7 @@
 		"react/jsx-no-bind": "off",
 		"no-restricted-exports": "off",
 		"import/order": "off",
+		"node/no-unsupported-features/node-builtins": "off",
 		"react/function-component-definition": "off"
 	},
 	"parserOptions": {

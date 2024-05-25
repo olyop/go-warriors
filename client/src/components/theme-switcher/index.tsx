@@ -3,7 +3,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 import { ComputerDesktopIcon, MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 import cx from "classnames";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useEffect } from "react";
 
 import { Button } from "@/components/button";
 import { Theme } from "@/shared/types";
@@ -11,58 +11,80 @@ import { Theme } from "@/shared/types";
 import { Modal, useModal } from "../modal";
 
 export default function HeaderThemeSwitcher() {
-	const initializedValue = useRef(false);
-
-	const [theme, setTheme] = useState<Theme | null>(null);
 	const [isModalOpen, openModal, closeModal] = useModal();
 
 	function handleSelectTheme(value: Theme) {
 		return () => {
-			setTheme(value);
+			applyTheme(value);
 
 			closeModal();
 		};
 	}
 
-	useEffect(() => {
-		if (theme === null) return;
-
-		if (initializedValue.current) {
-			initializedValue.current = false;
-			return;
-		}
-
+	function applyTheme(theme: Theme) {
 		localStorage.setItem("gowarriors-theme", theme);
 
-		const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-
 		if (theme === "system") {
+			const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
 			if (prefersDark) {
-				document.documentElement.dataset.theme = "synthwave";
-				document.documentElement.classList.add("dark");
+				applyDarkTheme();
 			} else {
-				document.documentElement.dataset.theme = "cupcake";
-				document.documentElement.classList.remove("dark");
+				applyLightTheme();
 			}
 
 			return;
 		}
 
 		if (theme === "dark") {
-			document.documentElement.dataset.theme = "synthwave";
-			document.documentElement.classList.add("dark");
+			applyDarkTheme();
 
 			return;
 		}
 
+		// default to light theme
+		applyLightTheme();
+	}
+
+	function applyDarkTheme() {
+		document.documentElement.dataset.theme = "synthwave";
+		document.documentElement.classList.add("dark");
+	}
+
+	function applyLightTheme() {
 		document.documentElement.dataset.theme = "cupcake";
 		document.documentElement.classList.remove("dark");
-	}, [theme]);
+	}
+
+	function handlePrefersColorSchemeChange(theme: Theme) {
+		return () => {
+			if (theme !== "system") {
+				return;
+			}
+
+			applyTheme(theme);
+		};
+	}
 
 	useEffect(() => {
-		initializedValue.current = true;
-		setTheme(localStorage.getItem("gowarriors-theme") as Theme);
+		const theme = localStorage.getItem("gowarriors-theme") as Theme;
+		const listener = handlePrefersColorSchemeChange(theme);
+		const darkModeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+		darkModeMediaQuery.addEventListener("change", listener);
+		applyTheme(theme);
+
+		return () => {
+			darkModeMediaQuery.removeEventListener("change", listener);
+		};
 	}, []);
+
+	let theme: Theme;
+	if (typeof window !== "undefined") {
+		theme = (localStorage.getItem("gowarriors-theme") || "system") as Theme;
+	} else {
+		theme = "system";
+	}
 
 	return (
 		<Fragment>

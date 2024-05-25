@@ -5,7 +5,7 @@ client/.next
 client/out
 client/build
 client/.vercel
-client/.env.development.local
+client/.env.local
 
 server/gowarriors
 server/tmp
