@@ -11,7 +11,7 @@ export function ScoresScript() {
 }
 
 function scoresScript() {
-	const scores = localStorage.getItem("scores");
+	const scores = localStorage.getItem("gowarriors-scores");
 
 	if (scores === null) {
 		document.documentElement.dataset.scores = "true";

@@ -5,8 +5,8 @@ import Link from "next/link";
 
 import { Button } from "@/components/button";
 
+import logo from "../../assets/logo.png";
 import { HeaderDynamicButtons } from "./dynamic-buttons";
-import logo from "./logo.png";
 
 export function Header() {
 	return (
@@ -18,9 +18,14 @@ export function Header() {
 					className="btn-ghost drawer-button"
 					leftIcon={iconClassName => <Bars3Icon className={iconClassName} />}
 				/>
-				<Link href="/schedule">
-					<Image src={logo as StaticImageData} alt="Logo" className="size-10" />
-				</Link>
+				<div className="flex items-center gap-6">
+					<Link href="/schedule">
+						<Image src={logo as StaticImageData} alt="Logo" className="size-16" />
+					</Link>
+					<h1 className="text-xl">
+						<b>Schedule</b>
+					</h1>
+				</div>
 			</div>
 			<HeaderDynamicButtons />
 		</header>

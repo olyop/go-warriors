@@ -11,7 +11,7 @@ export default function ScoreSwitcher() {
 	function handleToggleScores() {
 		setScores(prevState => !prevState);
 		document.documentElement.dataset.scores = document.documentElement.dataset.scores === "true" ? "false" : "true";
-		localStorage.setItem("scores", document.documentElement.dataset.scores);
+		localStorage.setItem("gowarriors-scores", document.documentElement.dataset.scores);
 	}
 
 	useEffect(() => {

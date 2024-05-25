@@ -10,7 +10,7 @@ export function ThemeScript() {
 }
 
 function themeScript() {
-	const theme = localStorage.getItem("theme");
+	const theme = localStorage.getItem("gowarriors-theme");
 	const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
 	if (theme === null || theme === "system") {

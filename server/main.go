@@ -11,12 +11,12 @@ import (
 func main() {
 	godotenv.Load()
 	gin.SetMode(gin.ReleaseMode)
-	context := BuildContext()
 
 	g := gin.New()
 	g.Use(gin.Logger())
 	g.Use(gin.Recovery())
 
+	context := BuildContext()
 	BuildRoutes(g, context)
 
 	if os.Getenv("AWS_LAMBDA_FUNCTION_NAME") != "" {

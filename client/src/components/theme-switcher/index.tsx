@@ -32,7 +32,7 @@ export default function HeaderThemeSwitcher() {
 			return;
 		}
 
-		localStorage.setItem("theme", theme);
+		localStorage.setItem("gowarriors-theme", theme);
 
 		const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
@@ -61,7 +61,7 @@ export default function HeaderThemeSwitcher() {
 
 	useEffect(() => {
 		initializedValue.current = true;
-		setTheme(localStorage.getItem("theme") as Theme);
+		setTheme(localStorage.getItem("gowarriors-theme") as Theme);
 	}, []);
 
 	return (
